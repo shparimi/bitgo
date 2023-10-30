@@ -18,8 +18,13 @@ public class ServiceLauncher {
 
 	public static void main(String[] args) throws StreamReadException, DatabindException, IOException {
 		GetTransactionData gtd = new GetTransactionData();
-		List<TransactionData> tds = gtd
-				.getTransactionDataFromFile("000000000000000000076c036ff5119e5a5a74df77abf64203473364509f7732");
+		String input = "";
+		if (args.length == 0) {
+			input = "680000";
+		} else {
+			input = args[0];
+		}
+		List<TransactionData> tds = gtd.getTransactionDataFromFile(Integer.parseInt(input));
 		ProcessTransactionAncestry pta = new ProcessTransactionAncestry();
 		pta.processTransactionData(tds);
 	}

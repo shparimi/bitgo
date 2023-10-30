@@ -1,5 +1,6 @@
 package com.shparimi.bitgo.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -10,6 +11,21 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonInclude(Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TransactionData {
+	
+	public TransactionData() {
+		
+	}
+	public TransactionData(String id, List<String> vids) {
+		this.transactionId = id;
+		this.vin = new ArrayList<>();
+		for(String vid:vids) {
+			this.vin.add(new TransactionData(vid));
+		}
+	}
+	
+	private TransactionData(String id) {
+		this.transactionId = id;
+	}
 
 	@JsonProperty("txid")
 	private String transactionId;
